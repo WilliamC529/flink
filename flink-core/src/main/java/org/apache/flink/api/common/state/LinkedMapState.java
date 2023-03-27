@@ -18,7 +18,8 @@
 
 package org.apache.flink.api.common.state;
 
-import org.apache.flink.annotation.PublicEvolving;
+// import org.apache.flink.annotation.PublicEvolving;
+import org.apache.flink.runtime.state.AbstractStateBackend.java
 
 import java.util.LinkedHashMap;
 import java.util.Iterator;
@@ -39,7 +40,6 @@ import java.util.Map;
  * @param <UK> Type of the keys in the state.
  * @param <UV> Type of the values in the state.
  */
-@PublicEvolving
 public abstract class LinkedMapState<UK, UV> extends AbstractStateBackend implements MapState<UK, UV> {
 
     private final Map<UK, UV> map;
