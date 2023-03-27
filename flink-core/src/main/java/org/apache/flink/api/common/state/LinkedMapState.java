@@ -21,7 +21,8 @@ package org.apache.flink.api.common.state;
 // import org.apache.flink.annotation.PublicEvolving;
 import org.apache.flink.runtime.state.AbstractStateBackend.java;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * {@link State} interface for partitioned key-value state. The key-value pair can be added, updated
