@@ -18,15 +18,15 @@
 
 package org.apache.flink.api.common.state;
 
-import org.apache.flink.annotation.PublicEvolving;
+// import org.apache.flink.annotation.PublicEvolving;
+// import org.apache.flink.runtime.state.AbstractStateBackend;
 
-import java.util.LinkedHashMap;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Iterator;
 
 /**
  * {@link State} interface for partitioned key-value state. The key-value pair can be added, updated
- * and retrieved.
+ * and retrieved.Linked Hash Map version
  *
  * <p>The state is accessed and modified by user functions, and checkpointed consistently by the
  * system as part of the distributed snapshots.
@@ -39,62 +39,88 @@ import java.util.Map;
  * @param <UK> Type of the keys in the state.
  * @param <UV> Type of the values in the state.
  */
-@PublicEvolving
-public class LinkedMapState<UK, UV> implements MapState<UK, UV> {
+public interface LinkedMapState<UK, UV> extends State {
 
-    private final Map<UK, UV> map;
+    /**
+     * Returns the current value associated with the given key.
+     *
+     * @param key The key of the mapping
+     * @return The value of the mapping with the given key
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    UV get(UK key) throws Exception;
 
-    public LinkedMapState() {
-        this.map = new LinkedHashMap<>();
-    }
+    /**
+     * Associates a new value with the given key.
+     *
+     * @param key The key of the mapping
+     * @param value The new value of the mapping
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    void put(UK key, UV value) throws Exception;
 
-    @Override
-    public UV get(UK key) throws Exception {
-        return map.get(key);
-    }
+    /**
+     * Copies all of the mappings from the given map into the state.
+     *
+     * @param map The mappings to be stored in this state
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    void putAll(Map<UK, UV> map) throws Exception;
 
-    @Override
-    public void put(UK key, UV value) throws Exception {
-        map.put(key, value);
-    }
+    /**
+     * Deletes the mapping of the given key.
+     *
+     * @param key The key of the mapping
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    void remove(UK key) throws Exception;
 
-    @Override
-    public void putAll(Map<UK, UV> map) throws Exception {
-        this.map.putAll(map);
-    }
+    /**
+     * Returns whether there exists the given mapping.
+     *
+     * @param key The key of the mapping
+     * @return True if there exists a mapping whose key equals to the given key
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    boolean contains(UK key) throws Exception;
 
-    @Override
-    public void remove(UK key) throws Exception {
-        map.remove(key);
-    }
+    /**
+     * Returns all the mappings in the state.
+     *
+     * @return An iterable view of all the key-value pairs in the state.
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    Iterable<Map.Entry<UK, UV>> entries() throws Exception;
 
-    @Override
-    public boolean contains(UK key) throws Exception {
-        return map.containsKey(key);
-    }
+    /**
+     * Returns all the keys in the state.
+     *
+     * @return An iterable view of all the keys in the state.
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    Iterable<UK> keys() throws Exception;
 
-    @Override
-    public Iterable<Map.Entry<UK, UV>> entries() throws Exception {
-        return map.entrySet();
-    }
+    /**
+     * Returns all the values in the state.
+     *
+     * @return An iterable view of all the values in the state.
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    Iterable<UV> values() throws Exception;
 
-    @Override
-    public Iterable<UK> keys() throws Exception {
-        return map.keySet();
-    }
+    /**
+     * Iterates over all the mappings in the state.
+     *
+     * @return An iterator over all the mappings in the state
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    Iterator<Map.Entry<UK, UV>> iterator() throws Exception;
 
-    @Override
-    public Iterable<UV> values() throws Exception {
-        return map.values();
-    }
-
-    @Override
-    public Iterator<Map.Entry<UK, UV>> iterator() throws Exception {
-        return map.entrySet().iterator();
-    }
-
-    @Override
-    public boolean isEmpty() throws Exception {
-        return map.isEmpty();
-    }
+    /**
+     * Returns true if this state contains no key-value mappings, otherwise false.
+     *
+     * @return True if this state contains no key-value mappings, otherwise false.
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    boolean isEmpty() throws Exception;
 }
