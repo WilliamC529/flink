@@ -441,7 +441,7 @@ public abstract class StateBackendMigrationTestBase<B extends StateBackend> exte
                 createKeyedBackend(IntSerializer.INSTANCE);
 
         try {
-            MapState<Integer, TestType> mapState =
+            LinkedMapState<Integer, TestType> mapState =
                     backend.getPartitionedState(
                             VoidNamespace.INSTANCE,
                             CustomVoidNamespaceSerializer.INSTANCE,
