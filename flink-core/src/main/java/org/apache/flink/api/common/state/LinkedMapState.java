@@ -40,7 +40,7 @@ import java.util.Map;
  * @param <UV> Type of the values in the state.
  */
 @PublicEvolving
-public class LinkedMapState<UK, UV> implements MapState<UK, UV> {
+public abstract LinkedMapState<UK, UV> implements MapState<UK, UV> {
 
     private final Map<UK, UV> map;
 
@@ -97,4 +97,5 @@ public class LinkedMapState<UK, UV> implements MapState<UK, UV> {
     public boolean isEmpty() throws Exception {
         return map.isEmpty();
     }
+
 }
