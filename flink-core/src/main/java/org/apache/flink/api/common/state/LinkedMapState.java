@@ -98,4 +98,9 @@ public abstract class LinkedMapState<UK, UV> implements MapState<UK, UV> {
         return map.isEmpty();
     }
 
+    @Override
+    public void clear() throws Exception {
+        // Nothing
+    }
+
 }
