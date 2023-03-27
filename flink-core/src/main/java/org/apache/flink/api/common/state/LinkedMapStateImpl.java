@@ -65,7 +65,7 @@ public class LinkedMapStateImpl<UK, UV> implements LinkedMapState<UK, UV> {
     }
 
     @Override
-    public void clear() {
+    public void clear() throws Exception{
         map.clear();
     }
 }
