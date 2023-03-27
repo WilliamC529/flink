@@ -116,11 +116,11 @@ public interface LinkedMapState<UK, UV> extends State {
      */
     Iterator<Map.Entry<UK, UV>> iterator() throws Exception;
 
-    // /**
-    //  * Returns true if this state contains no key-value mappings, otherwise false.
-    //  *
-    //  * @return True if this state contains no key-value mappings, otherwise false.
-    //  * @throws Exception Thrown if the system cannot access the state.
-    //  */
-    // boolean isEmpty() throws Exception;
+    /**
+     * Returns true if this state contains no key-value mappings, otherwise false.
+     *
+     * @return True if this state contains no key-value mappings, otherwise false.
+     * @throws Exception Thrown if the system cannot access the state.
+     */
+    boolean isEmpty() throws Exception;
 }

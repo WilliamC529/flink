@@ -45,27 +45,67 @@ public class LinkedMapStateImpl<UK, UV> implements LinkedMapState<UK, UV> {
     private final LinkedHashMap<UK, UV> map = new LinkedHashMap<>();
 
     @Override
-    public LinkedHashMap<UK, UV> getMap() {
-        return map;
-    }
-
-    @Override
-    public void put(UK key, UV value) {
-        map.put(key, value);
-    }
-
-    @Override
-    public UV get(UK key) {
+    public UV get(UK key) throws Exception {
         return map.get(key);
     }
 
     @Override
-    public void remove(UK key) {
+    public void put(UK key, UV value) throws Exception {
+        map.put(key, value);
+    }
+
+    @Override
+    public void putAll(Map<UK, UV> map) throws Exception {
+        this.map.putAll(map);
+    }
+
+    @Override
+    public void remove(UK key) throws Exception {
         map.remove(key);
     }
 
     @Override
-    public void clear() throws Exception{
+    public boolean contains(UK key) throws Exception {
+        return map.containsKey(key);
+    }
+
+    @Override
+    public Iterable<Map.Entry<UK, UV>> entries() throws Exception {
+        return map.entrySet();
+    }
+
+    @Override
+    public Iterable<UK> keys() throws Exception {
+        return map.keySet();
+    }
+
+    @Override
+    public Iterable<UV> values() throws Exception {
+        return map.values();
+    }
+
+    @Override
+    public Iterator<Map.Entry<UK, UV>> iterator() throws Exception {
+        return map.entrySet().iterator();
+    }
+
+    @Override
+    public boolean isEmpty() throws Exception {
+        return map.isEmpty();
+    }
+
+    @Override
+    public void clear() throws Exception {
         map.clear();
+    }
+
+    @Override
+    public void snapshotState(long checkpointId, long checkpointTimestamp) throws Exception {
+        // do nothing
+    }
+
+    @Override
+    public void initializeState(StateInitializationContext context) throws Exception {
+        // do nothing
     }
 }
