@@ -95,17 +95,17 @@ public class LinkedMapStateImpl<UK, UV> implements LinkedMapState<UK, UV> {
     }
 
     @Override
-    public void clear() throws Exception {
+    public void clear(){
         map.clear();
     }
 
-    @Override
-    public void snapshotState(long checkpointId, long checkpointTimestamp) throws Exception {
-        // do nothing
-    }
+    // @Override
+    // public void snapshotState(long checkpointId, long checkpointTimestamp) throws Exception {
+    //     // do nothing
+    // }
 
-    @Override
-    public void initializeState(StateInitializationContext context) throws Exception {
-        // do nothing
-    }
+    // @Override
+    // public void initializeState(StateInitializationContext context) throws Exception {
+    //     // do nothing
+    // }
 }
