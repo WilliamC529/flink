@@ -21,6 +21,7 @@ package org.apache.flink.api.common.state;
 import org.apache.flink.annotation.PublicEvolving;
 
 import java.util.LinkedHashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 @PublicEvolving
