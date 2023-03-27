@@ -22,11 +22,12 @@ package org.apache.flink.api.common.state;
 // import org.apache.flink.runtime.state.AbstractStateBackend;
 
 import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Iterator;
 
 /**
- * {@link State} interface for partitioned key-value state. The key-value pair can be added, updated
- * and retrieved.Linked Hash Map version
+ * {@link State} Implemeentation. The key-value pair can be added, updated
+ * and retrieved.
  *
  * <p>The state is accessed and modified by user functions, and checkpointed consistently by the
  * system as part of the distributed snapshots.
@@ -39,25 +40,32 @@ import java.util.Iterator;
  * @param <UK> Type of the keys in the state.
  * @param <UV> Type of the values in the state.
  */
-public interface LinkedMapState<UK, UV> extends State {
+public class LinkedMapStateImpl<UK, UV> implements LinkedMapState<UK, UV> {
 
-    /** SS
-     */
-    LinkedHashMap<UK, UV> getMap();
+    private final LinkedHashMap<UK, UV> map = new LinkedHashMap<>();
 
-    /** SS
-     */
-    void put(UK key, UV value);
+    @Override
+    public LinkedHashMap<UK, UV> getMap() {
+        return map;
+    }
 
-    /** SS
-     */
-    UV get(UK key);
+    @Override
+    public void put(UK key, UV value) {
+        map.put(key, value);
+    }
 
-    /** SS
-     */
-    void remove(UK key);
+    @Override
+    public UV get(UK key) {
+        return map.get(key);
+    }
 
-    /** SS
-     */
-    void clear();
+    @Override
+    public void remove(UK key) {
+        map.remove(key);
+    }
+
+    @Override
+    public void clear() {
+        map.clear();
+    }
 }
