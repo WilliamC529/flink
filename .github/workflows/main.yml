@@ -12,7 +12,8 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Test
-        run: 
+        run: |
+          mvn clean install
           mvn spotless:apply -am -pl flink-runtime test -Dtest=org.apache.flink.runtime.state.FileStateBackendMigrationTest -DfailIfNoTests=false
         
   Test_With_Nondex_Shuffling:
@@ -25,5 +26,6 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Test
-        run: 
+        run: |
+          mvn clean install
           mvn spotless:apply -am -pl flink-runtime edu.illinois:nondex-maven-plugin:2.1.1:nondex -Dtest=org.apache.flink.runtime.state.FileStateBackendMigrationTest -DfailIfNoTests=false
