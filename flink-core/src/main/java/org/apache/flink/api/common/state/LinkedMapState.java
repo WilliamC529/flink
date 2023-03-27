@@ -40,7 +40,7 @@ import java.util.Map;
  * @param <UV> Type of the values in the state.
  */
 @PublicEvolving
-public abstract LinkedMapState<UK, UV> implements MapState<UK, UV> {
+public abstract LinkedMapState<UK, UV> extends AbstractStateBackend implements MapState<UK, UV> {
 
     private final Map<UK, UV> map;
 
