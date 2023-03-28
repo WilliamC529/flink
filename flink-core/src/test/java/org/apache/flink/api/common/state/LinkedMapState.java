@@ -39,7 +39,7 @@ import java.util.Iterator;
  * @param <UK> Type of the keys in the state.
  * @param <UV> Type of the values in the state.
  */
-public interface LinkedMapState<UK, UV> extends State {
+public interface LinkedMapState<UK, UV> extends MapState {
 
     /**
      * Returns the current value associated with the given key.
