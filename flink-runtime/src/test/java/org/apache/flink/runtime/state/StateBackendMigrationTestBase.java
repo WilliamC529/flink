@@ -443,23 +443,27 @@ public abstract class StateBackendMigrationTestBase<B extends StateBackend> exte
                 createKeyedBackend(IntSerializer.INSTANCE);
 
         try {
-            LinkedMapState<Integer, TestType> mapState =
+            MapState<Integer, TestType> mapState =
                     backend.getPartitionedState(
                             VoidNamespace.INSTANCE,
                             CustomVoidNamespaceSerializer.INSTANCE,
                             initialAccessDescriptor);
 
+            LinkedHashMap<String, Integer> linkedmMapState = new LinkedHashMap<String, Integer>(mapState);
+
             backend.setCurrentKey(1);
-            mapState.put(1, new TestType("key-1", 1));
-            mapState.put(2, new TestType("key-1", 2));
-            mapState.put(3, new TestType("key-1", 3));
+            linkedMapState.put(1, new TestType("key-1", 1));
+            linkedMapState.put(2, new TestType("key-1", 2));
+            linkedMapState.put(3, new TestType("key-1", 3));
 
             backend.setCurrentKey(2);
-            mapState.put(1, new TestType("key-2", 1));
+            linkedMapState.put(1, new TestType("key-2", 1));
 
             backend.setCurrentKey(3);
-            mapState.put(1, new TestType("key-3", 1));
-            mapState.put(2, new TestType("key-3", 2));
+            linkedMapState.put(1, new TestType("key-3", 1));
+            linkedMapState.put(2, new TestType("key-3", 2));
+
+            
 
             KeyedStateHandle snapshot =
                     runSnapshot(
@@ -472,6 +476,8 @@ public abstract class StateBackendMigrationTestBase<B extends StateBackend> exte
             backend.dispose();
 
             backend = restoreKeyedBackend(IntSerializer.INSTANCE, snapshot);
+
+            HashMap<String, Integer> mapState = new HashMap<String, Integer>(linkedMapState);
 
             mapState =
                     backend.getPartitionedState(
